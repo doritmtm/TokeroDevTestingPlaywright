@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using System.Diagnostics;
 using System.Globalization;
 using System.Resources;
 
@@ -16,34 +17,28 @@ namespace TokeroDevTestingPlaywright
             return page;
         }
 
-        public static async Task RunOnAllBrowsersAllLanguages(Func<IPage, string, Task> asyncTest, TestContext testContext, string testName)
+        public static async Task RunAllLanguagesForBrowser(Func<IPage, string, Task> asyncTest, IBrowserType browserType, TestContext testContext, string testName, long maxTimeToRunTest)
         {
-            testContext.WriteLine($"Running {testName} test");
+            IPage page = await InitializePage(browserType);
 
+            foreach (string language in StaticSettings.SupportedLanguages)
+            {
+                testContext.WriteLine($"Running {testName} test on {browserType.Name} for {language} language");
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                await asyncTest(page, language);
+                stopwatch.Stop();
+                testContext.WriteLine($"Took {stopwatch.ElapsedMilliseconds} ms");
+                Assert.IsTrue(stopwatch.ElapsedMilliseconds < maxTimeToRunTest, $"Test {testName} for {language} language on {browserType.Name} took too long: {stopwatch.ElapsedMilliseconds} ms. Expected less than {maxTimeToRunTest} ms.");
+            }
+        }
+
+        public static async Task RunOnAllBrowsersAllLanguages(Func<IPage, string, Task> asyncTest, TestContext testContext, string testName, long maxTimeToRunTest)
+        {
             IPlaywright playwright = await Playwright.CreateAsync();
 
-            IPage chromiumPage = await InitializePage(playwright.Chromium);
-            foreach (string language in StaticSettings.SupportedLanguages)
-            {
-                testContext.WriteLine($"    Running current test for {language} language on Chromium");
-                await asyncTest(chromiumPage, language);
-            }
-
-            IPage firefoxPage = await InitializePage(playwright.Firefox);
-            foreach (string language in StaticSettings.SupportedLanguages)
-            {
-                testContext.WriteLine($"    Running current test for {language} language on Firefox");
-                await asyncTest(firefoxPage, language);
-            }
-
-            IPage webkitPage = await InitializePage(playwright.Webkit);
-            foreach (string language in StaticSettings.SupportedLanguages)
-            {
-                testContext.WriteLine($"    Running current test for {language} language on Webkit");
-                await asyncTest(webkitPage, language);
-            }
-
-            testContext.WriteLine($"Run {testName} test successful");
+            await RunAllLanguagesForBrowser(asyncTest, playwright.Chromium, testContext, testName, maxTimeToRunTest);
+            await RunAllLanguagesForBrowser(asyncTest, playwright.Firefox, testContext, testName, maxTimeToRunTest);
+            await RunAllLanguagesForBrowser(asyncTest, playwright.Webkit, testContext, testName, maxTimeToRunTest);
         }
 
         public static string GetLocalizedString(string nameID, string language)

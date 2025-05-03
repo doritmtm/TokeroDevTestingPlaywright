@@ -14,7 +14,8 @@
                     await Expect(page).ToHaveTitleAsync($"{TestHelper.GetLocalizedString("PoliciesListPageTitle", language)} | {StaticSettings.Company}");
                 },
                 TestContext,
-                "Page_Title"
+                "Page_Title",
+                StaticSettings.MaxTimeToLoadPage
             );
         }
     }
