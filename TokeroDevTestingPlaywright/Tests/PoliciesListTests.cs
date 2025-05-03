@@ -8,11 +8,11 @@ namespace TokeroDevTestingPlaywright.Tests
         [TestMethod]
         public async Task Page_Title()
         {
-            IBrowser chrome = await Playwright.Chromium.LaunchAsync();
-            IBrowserContext chromeContext = await chrome.NewContextAsync();
-            IPage chromePagePolicies = await chromeContext.NewPageAsync();
-            await chromePagePolicies.GotoAsync($"{StaticSettings.MainWebsiteUrl}/en/policies");
-            await Expect(chromePagePolicies).ToHaveTitleAsync($"TOKERO policies and rules | {StaticSettings.Company}");
+            await TestHelper.RunOnAllBrowsers(async (page) =>
+            {
+                await page.GotoAsync($"{StaticSettings.MainWebsiteUrl}/en/policies");
+                await Expect(page).ToHaveTitleAsync($"TOKERO policies and rules | {StaticSettings.Company}");
+            });
         }
     }
 }
