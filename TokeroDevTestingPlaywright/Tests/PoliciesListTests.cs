@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
 
-namespace TokeroDevTestingPlaywright
+namespace TokeroDevTestingPlaywright.Tests
 {
     [TestClass]
     public class PoliciesListTests : PlaywrightTest
