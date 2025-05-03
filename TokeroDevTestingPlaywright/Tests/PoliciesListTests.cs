@@ -1,6 +1,4 @@
-﻿using Microsoft.Playwright;
-
-namespace TokeroDevTestingPlaywright.Tests
+﻿namespace TokeroDevTestingPlaywright.Tests
 {
     [TestClass]
     public class PoliciesListTests : PlaywrightTest
@@ -8,11 +6,16 @@ namespace TokeroDevTestingPlaywright.Tests
         [TestMethod]
         public async Task Page_Title()
         {
-            await TestHelper.RunOnAllBrowsers(async (page) =>
-            {
-                await page.GotoAsync($"{StaticSettings.MainWebsiteUrl}/en/policies");
-                await Expect(page).ToHaveTitleAsync($"TOKERO policies and rules | {StaticSettings.Company}");
-            });
+            await TestHelper.RunOnAllBrowsersAllLanguages
+            (
+                async (page, language) =>
+                {
+                    await page.GotoAsync($"{StaticSettings.MainWebsiteUrl}/{language}/policies");
+                    await Expect(page).ToHaveTitleAsync($"{TestHelper.GetLocalizedString("PoliciesListPageTitle", language)} | {StaticSettings.Company}");
+                },
+                TestContext,
+                "Page_Title"
+            );
         }
     }
 }

@@ -14,6 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources.de.resx" />
+    <EmbeddedResource Update="Resources.resx" />
+    <EmbeddedResource Update="Resources.ro.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.13.0" />
   </ItemGroup>
 
