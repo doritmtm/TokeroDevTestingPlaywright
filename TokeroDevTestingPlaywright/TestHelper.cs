@@ -11,7 +11,7 @@ namespace TokeroDevTestingPlaywright
 
         public static async Task<IPage> InitializePage(IBrowserType browserType)
         {
-            IBrowser browser = await browserType.LaunchAsync();
+            IBrowser browser = await browserType.LaunchAsync(new BrowserTypeLaunchOptions { Headless = !StaticSettings.ShowBrowsers });
             IBrowserContext browserContext = await browser.NewContextAsync();
             IPage page = await browserContext.NewPageAsync();
             return page;
