@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cookies" xml:space="preserve">
+    <value>Cookies</value>
+  </data>
+  <data name="CountriesListForAMLRiskAssessment" xml:space="preserve">
+    <value>Länderliste für die AML-Risikobewertung</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Gebühren</value>
+  </data>
+  <data name="GDPR" xml:space="preserve">
+    <value>GDPR</value>
+  </data>
+  <data name="KYC" xml:space="preserve">
+    <value>KYC</value>
+  </data>
+  <data name="MinimumsAndOptions" xml:space="preserve">
+    <value>Mindesbeträge und Optionen</value>
+  </data>
   <data name="PoliciesListPageTitle" xml:space="preserve">
     <value>TOKERO Richtlinien und Regeln</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Vertraulichkeit</value>
+  </data>
+  <data name="Referrals" xml:space="preserve">
+    <value>Verweise</value>
+  </data>
+  <data name="RequestAnsweringProcessingTimes" xml:space="preserve">
+    <value>Zeit für die Beantwortung/Bearbeitung der Anträge</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Allgemeine Geschäftsbedingungen</value>
   </data>
 </root>
